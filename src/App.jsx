@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
+import './styles/App.css'
 import facade from "./apiFacade";
-import Chuck from "./router/Chuck";
+import { Outlet, Link } from 'react-router-dom';
 
 
 
@@ -41,12 +42,27 @@ function LoggedIn() {
 
 }
 
-function Menu(){
-  return(
+function Menu() {
+  return (
     <div>
-    <h1>Book viewing</h1>
-
-  </div>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <p>User options:</p>
+        <Link to="/Guest">Guest</Link> |{" "}
+        <Link to="/Movie">Movie</Link> |{" "}
+        <Link to="/Festival">Festival</Link>
+        <p>Admin options:</p>
+        <Link to="/CreateGuest">Create Guest</Link> |{" "}
+        <Link to="/CreateMovie">Create movie</Link> |{" "}
+        <Link to="/CreateFestival">Create festival</Link> |{" "}
+        <Link to="/DeleteMovie">Delete movie</Link>
+      </nav>
+      <Outlet />
+    </div>
   )
 }
 
@@ -70,7 +86,7 @@ function App() {
       {!loggedIn ? (<LogIn login={login} />) :
         (<div>
           <LoggedIn />
-          <Chuck/>
+          <Menu />
           <button onClick={logout}>Logout</button>
         </div>)}
     </div>

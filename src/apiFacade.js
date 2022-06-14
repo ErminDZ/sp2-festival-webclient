@@ -36,6 +36,18 @@ function apiFacade() {
         return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
 
     }
+
+    const postData = (endpoint, body) => {
+        const options = makeOptions("POST", true, { value: body });
+        return fetch(URL + "/api/xxx/" + endpoint, options)
+            .then(handleHttpErrors)
+            .then(res => { setToken(res.token) })
+    }
+
+    const deleteData = (endpoint) => {
+        const options = makeOptions("DELETE", true);
+        return fetch(URL + "/api/xxx/" + endpoint, options).then(handleHttpErrors);
+    }
     const makeOptions = (method, addToken, body) => {
         var opts = {
             method: method,
@@ -59,7 +71,9 @@ function apiFacade() {
         loggedIn,
         login,
         logout,
-        fetchData
+        fetchData,
+        postData,
+        deleteData
     }
 }
 const facade = apiFacade();
